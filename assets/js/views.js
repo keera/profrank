@@ -49,7 +49,7 @@ fb.views.Welcome = Backbone.View.extend({
   
   render : function() {
     this.$el.html(this.template());
-    $(this.$el).find('#query, #prof-search').autocomplete({
+    var autoSettings = {
       serviceUrl : 'service/autocomplete.ashx',
       minChars : 1,
       delimiter : /(,|;)\s*/, // regex or character
@@ -58,8 +58,19 @@ fb.views.Welcome = Backbone.View.extend({
       zIndex : 9999,
       deferRequestBy : 0, //miliseconds
       noCache : false, //default is false, set to true to disable caching
-      lookup : ['Computer Science', 'History', 'Biology'] //local lookup values
-    });
+      lookup : [
+        'Computer Science', 
+        'History', 
+        'Biology',
+        'Chemistry',
+        'Philosophy',
+        'Theology'
+      ],
+    };
+    $(this.$el).find('#query').autocomplete(autoSettings);
+    autoSettings.width = 302;
+    $(this.$el).find('#prof-search').autocomplete(autoSettings);
+    
     $(this.$el).find('#prof-search').tooltip();
     $(this.$el).find('#endorse').tooltip();
     $(this.$el).find('#condemn').tooltip();
