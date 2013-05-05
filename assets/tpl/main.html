@@ -1,0 +1,103 @@
+<div id="main">
+    <div class="jumbotron masthead">
+        <div class="container">
+            <h1>Prof Rank</h1>
+            <p>
+                Professor reviews, without the hassle.
+            </p>
+            <p>
+                <a id="endorse" href="#" class="btn btn-success btn-large" data-toggle="tooltip" title="Endorse your favorite professor!">Endorse</a>
+                <a id="condemn" href="#" class="btn btn-danger btn-large" data-toggle="tooltip" title="Avoid this professor!">Condemn</a>
+            </p>
+            <p>
+                <input id="prof-search" class="input-xlarge" type="text" placeholder="Computer Science" data-toggle="tooltip" title="Type in a subject and press ENTER">
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="endorseModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+        </button>
+        <h3 id="myModalLabel">Endorse this professor</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-inline">
+            <label>Professor Information</label>
+            <div id="first-name" class="control-group">
+                <div class="controls">
+                    <input type="text" placeholder="First name">
+                </div>
+            </div>
+            <div id="last-name" class="control-group">
+                <div class="controls">
+                    <input type="text" placeholder="Last name">
+                </div>
+            </div>
+            <div id="department"class="control-group">
+                <div class="controls">
+                    <input type="text" name="q" id="query" placeholder="Department"/>
+                </div>
+            </div>
+            <label>Review</label>
+            <div id="note" class="control-group">
+                <div class="controls">
+                    <textarea rows="5"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">
+            Close
+        </button>
+        <button id="post-rating" class="btn btn-primary">
+            Save changes
+        </button>
+    </div>
+</div>
+
+<div id="condemnModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            ×
+        </button>
+        <h3 id="myModalLabel">Condemn this professor</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-inline">
+            <label>Professor Information</label>
+            <div id="first-name" class="control-group">
+                <div class="controls">
+                    <input type="text" placeholder="First name">
+                </div>
+            </div>
+            <div id="last-name" class="control-group">
+                <div class="controls">
+                    <input type="text" placeholder="Last name">
+                </div>
+            </div>
+            <div id="department"class="control-group">
+                <div class="controls">
+                    <input type="text" name="q" id="query" placeholder="Department"/>
+                </div>
+            </div>
+            <label>Review</label>
+            <div id="note" class="control-group">
+                <div class="controls">
+                    <textarea rows="5"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">
+            Close
+        </button>
+        <button id="post-rating" class="btn btn-primary">
+            Save changes
+        </button>
+    </div>
+</div>
