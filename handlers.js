@@ -31,7 +31,8 @@ db.once('open', function(){
       },
     userid: Number,
     dept: {type: String, trim: true, lowercase:true},
-    rating: Number,
+    endorse: Number,
+    condemn: Number,
     review: String
   });
   Rating = mongoose.model('Ratings', ratingSchema);
@@ -48,7 +49,8 @@ exports.addProf = function(req, res) {
     },
     userid: p.userid,
     dept: p.dept,
-    rating: p.rating,
+    endorse: p.endorse,
+    condemn: p.condemn,
     review: p.note
   });
   newRating.save(function(err){
@@ -56,16 +58,29 @@ exports.addProf = function(req, res) {
     res.send(200, "Success");
   });
   
-}
+};
 
 exports.getProfs = function(req, res) {
   var p = req.param("query").toLowerCase();
-  
-  Rating.find({dept: p}, 'name.first name.last', function(err, results){
-    if(err) res.send(500, "Failed");
-    res.json(results);
-  });
-}
+  var group = {
+    key: { name : {first: 1, last:1}, 'dept': 1 },
+    cond: {},
+    reduce: function ( curr, result ) {
+      result.endorse += curr.endorse;
+      result.condemn += curr.condemn;
+    },
+    initial: { endorse : 0, condemn: 0},
+    finalize: function(result) {
+      result.avg = result.endorse / (result.endorse + result.condemn);
+    }
+  };
+  Rating.collection.group(group.key, group.cond, group.initial, 
+    group.reduce, group.finalize, {}, {}, 
+    function(err, results) {
+      if(err) res.send(500, "Failed");
+        res.json(results);
+    });
+};
 
 exports.getReviews = function(req, res) {
   var f = req.param("first").toLowerCase(),
@@ -74,11 +89,11 @@ exports.getReviews = function(req, res) {
     if(err) res.send(500, "Failed");
     res.json(results);
   });
-}
+};
 
 exports.getDepts = function(req, res) {
   Rating.distinct('dept',{}, function(err, results){
     if(err) res.send(500, "Failed");
     res.json(results);
   });
-}
+};

@@ -1,19 +1,20 @@
 {
-  "name": "Profrank",
+  "name": "hello-mongoose",
   "version": "0.1.0",
-  "description": "Professor Review, without the hassle.",
-  "main": "server.js",
+  "description": "MongoDB with Mongoose on Node.js example",
+  "main": "app.js",
   "engines" : { 
       "node" : "0.8",
       "npm" : ">=1.1"
   },
-  "repository": "https://github.com/keera/profrank.git",
-  "author": "Alan Lin",
+  "repository": "https://github.com/mongolab/hello-mongoose.git",
+  "author": "Ben Wen",
   "license": "MIT",
   "dependencies": {
-    "mongoose": "3.5.7",
-    "express": "3.1.0"
+    "mongoose": "3.5.7"
   },
-  "homepage" : ""
+  "changelog" : [{"0.0.0": "Initial release"},
+		 {"0.1.0": "Update to Mongoose 3.5.7; new MongoClient semantics"}],
+  "homepage" : "http://hello-mongoose.herokuapp.com"
 }
 
