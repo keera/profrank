@@ -50,7 +50,7 @@ fb.views.Welcome = Backbone.View.extend({
   render : function() {
     this.$el.html(this.template());
     var autoSettings = {
-      serviceUrl : 'service/autocomplete.ashx',
+      serviceUrl : '/subjects',
       minChars : 1,
       delimiter : /(,|;)\s*/, // regex or character
       maxHeight : 400,
@@ -58,14 +58,6 @@ fb.views.Welcome = Backbone.View.extend({
       zIndex : 9999,
       deferRequestBy : 0, //miliseconds
       noCache : false, //default is false, set to true to disable caching
-      lookup : [
-        'Computer Science', 
-        'History', 
-        'Biology',
-        'Chemistry',
-        'Philosophy',
-        'Theology'
-      ],
     };
     $(this.$el).find('#query').autocomplete(autoSettings);
     autoSettings.width = 302;

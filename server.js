@@ -27,6 +27,10 @@ app.get('/depts', function(req, res) {
   handlers.getDepts(req, res);
 });
 
+app.get('/subjects', function(req, res){
+  handlers.getSubjects(req, res);
+})
+
 var port = process.env.PORT || 5000;
 app.listen(port);
 console.log("Listening on port 5000");

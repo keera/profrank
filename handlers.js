@@ -64,7 +64,7 @@ exports.getProfs = function(req, res) {
   var p = req.param("query").toLowerCase();
   var group = {
     key: { name : {first: 1, last:1}, 'dept': 1 },
-    cond: {},
+    cond: {dept: p},
     reduce: function ( curr, result ) {
       result.endorse += curr.endorse;
       result.condemn += curr.condemn;
@@ -91,6 +91,30 @@ exports.getReviews = function(req, res) {
     res.json(results);
   });
 };
+
+exports.getSubjects = function(req, res) {
+  /*{
+    // Query is not required as of version 1.2.5
+    query: "Unit",
+    suggestions: [
+        { value: "United Arab Emirates", data: "AE" },
+        { value: "United Kingdom",       data: "UK" },
+        { value: "United States",        data: "US" }
+    ]
+  }*/
+  var f = req.param("query");
+  
+  Rating.distinct("dept").exec(
+    Rating.find({"dept": { $regex : f}}), function(err, results){
+      if(err) res.send(500, "Failed");
+      var responseData = {query: "Unit", suggestions: []};
+      console.log(results);
+      for(var a in results){
+        responseData.suggestions.push({value: results[a], data: ""});
+      }
+      res.json(responseData);
+  });
+ };
 
 exports.getDepts = function(req, res) {
   Rating.distinct('dept',{}, function(err, results){
