@@ -19,98 +19,66 @@ mongoose.connect(uristring, function (err, res) {
 
 var db = mongoose.connection;
 //references to collections
-var Prof, 
-    Dept, 
-    User, 
-    Rating;
+var Rating;
     
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function(){
-  //professors
-  var profSchema = mongoose.Schema({
-    name: {
-      first: {type: String, trim: true},
-      last: {type: String, trim: true}
-      },
-    dept: mongoose.Schema.Types.ObjectId
-  });
-  Prof = mongoose.model('Profs', profSchema);
-  //departments
-  var deptSchema = mongoose.Schema({name: String});
-  Dept = mongoose.model('Depts', deptSchema);
-  //users
-  var userSchema = mongoose.Schema({
-    name: {
-      first: {type: String, trim: true},
-      last: {type: String, trim: true}
-      },
-    userid: Number
-  });
-  User = mongoose.model('Users', userSchema);
   //ratings
   var ratingSchema = mongoose.Schema({
+    name: {
+      first: {type: String, trim: true, lowercase:true},
+      last: {type: String, trim: true, lowercase:true}
+      },
     userid: Number,
-    profid: mongoose.Schema.Types.ObjectId,
+    dept: {type: String, trim: true, lowercase:true},
     rating: Number,
     review: String
   });
-  Rating = mongoose.model('Ratings', userSchema);
-  
+  Rating = mongoose.model('Ratings', ratingSchema);
 });
 //get default texts. These will go into mongodb later. HC'd for now.
 
 exports.addProf = function(req, res) {
-  var p = req.body,
-      userid = p.userid,
-      first = p.firstname,
-      last = p.lastname,
-      dept = p.dept,
-      review = p.note;
+  var p = req.body;
       
-  Prof.count({'name.first':first, 'name.last':last}, function(err, count){
-    if (err) res.send(404, "Error");
-    if (count < 1) {
-      Dept.count({'name' : dept}, function(err, count){
-        if (count < 1) {
-          var objId = new mongoose.Types.ObjectId;
-          var newDept = new Dept({_id: objId, name : dept});
-          newDept.save(function(err, dept){
-            if(err) res.send(404, "Failed adding dept");
-            var newProf = new Prof({name: {first: first, last: last}, dept: objId});
-            newProf.save(function(err, prof){
-              if(err) res.send(404, "Failed adding prof");
-              res.send(200, "PROF ADDED!");
-            });
-          });
-        } else {
-          //get the objectid and save the new prof
-        }
-      })
-    } else {
-      Prof.findOne({'name.first': first, 'name.last':last}, function(err, prof){
-        if (err) res.send(404, "Error finding existing prof");
-        var deptId = prof.dept,
-            profid = prof._id;
-            console.log(profid);
-        Rating.count({'userid': userid, 'profid': profid}, function(err, count){
-          if(count < 1) {
-            var newRating = new Rating({
-              //userid: userid,
-              rating: 1,
-              review: review
-            });
-            newRating.save(function(err, rating){
-              if(err) res.send(404, "failed adding rating");
-              res.send(200, "Rating added");
-            })  
-          } else {
-            res.send(300, "Rating exists");
-          }
-        })    
-      })
-
-    }
-    //at this point, we can move on to ratings
+  var newRating = new Rating({
+    name: {
+      first: p.firstname,
+      last: p.lastname
+    },
+    userid: p.userid,
+    dept: p.dept,
+    rating: p.rating,
+    review: p.note
   });
-  //res.send(200, "YO");
+  newRating.save(function(err){
+    if(err) res.send(500, "Issue adding");
+    res.send(200, "Success");
+  });
+  
+}
+
+exports.getProfs = function(req, res) {
+  var p = req.param("query").toLowerCase();
+  
+  Rating.find({dept: p}, 'name.first name.last', function(err, results){
+    if(err) res.send(500, "Failed");
+    res.json(results);
+  });
+}
+
+exports.getReviews = function(req, res) {
+  var f = req.param("first").toLowerCase(),
+      l = req.param("last").toLowerCase();
+  Rating.find({'name.first': f, 'name.last': l}, 'rating review', function(err, results){
+    if(err) res.send(500, "Failed");
+    res.json(results);
+  });
+}
+
+exports.getDepts = function(req, res) {
+  Rating.distinct('dept',{}, function(err, results){
+    if(err) res.send(500, "Failed");
+    res.json(results);
+  });
 }

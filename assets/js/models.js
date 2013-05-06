@@ -117,6 +117,7 @@ fb.models.Rating = Backbone.Model.extend({
    firstname : null,
    lastname : null,
    dept : null,
+   rating: null,
    note: null,
    userid: null,
    urlRoot : "/prof",
@@ -141,7 +142,11 @@ fb.models.Note = Backbone.Model.extend({
 });
 
 fb.models.NoteCollection = Backbone.Collection.extend({
-    model: fb.models.Note
+    model: fb.models.Note,
+    urlRoot : "/reviews",
+    url : function() {
+     return this.urlRoot;
+   }
 });
 
 fb.models.Prof = Backbone.Model.extend({
@@ -159,7 +164,10 @@ fb.models.Prof = Backbone.Model.extend({
 });
 
 fb.models.ProfCollection = Backbone.Collection.extend({
-    model: fb.models.Person
+  model: fb.models.Prof,
+  url : function() {
+    return "/profs"; 
+  } 
 });
 
 var a = new fb.models.Prof({"name":"Alan Test"}),

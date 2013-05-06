@@ -80,7 +80,8 @@ fb.views.Welcome = Backbone.View.extend({
   events : {
     'click #endorse' : 'endorse',
     'click #condemn' : 'condemn',
-    'click #post-rating' : 'post',
+    'click #submitEndorse' : 'postEndorse',
+    'click #submitCondemn' : 'postCondemn',
     'keypress #prof-search' : 'profSearch'
   },
 
@@ -111,20 +112,29 @@ fb.views.Welcome = Backbone.View.extend({
       window.activeSession.login(config);
     }
   },
-  
+
   profSearch : function(e) {
     if(e.keyCode != 13)
       return;
     var search = $("#prof-search").val();
-    try {
-      $('#content').html(new this.fb.views.Friends({
-        model : window.profCollection
-      }).el);
-    } catch (e) {
-      this.showErrorPage();
-    }
+    var pc = new this.fb.models.ProfCollection();
+    callBack = function(collection, response, options) {
+      try {
+        $('#content').html(new this.fb.views.Friends({
+          model : collection
+        }).el);
+      } catch (e) {
+        this.showErrorPage();
+      }
+    };
+    pc.fetch({
+      data : {
+        query : search
+      },
+      success : callBack
+    });
   },
-  
+
   isEmpty: function(obj, id, msg) {
     if(obj.length < 1) {
       $(id + " span").remove('.help-inline');
@@ -142,7 +152,7 @@ fb.views.Welcome = Backbone.View.extend({
     return fields.indexOf(false) < 0;
   },
   
-  post : function() {
+  postEndorse : function() {
     var first = $("#first-name :input").val(),
         last = $("#last-name :input").val(), 
         dept = $("#department :input").val(), 
@@ -162,11 +172,42 @@ fb.views.Welcome = Backbone.View.extend({
       firstname : first,
       lastname : last,
       dept : dept,
+      rating: 1,
       note : note
     };
 
     var newRating = new this.fb.models.Rating(data);
     newRating.save();
+    $('#endorseModal').modal('hide');
+  },
+  
+  postCondemn : function() {
+    var first = $("#first-name :input").val(),
+        last = $("#last-name :input").val(), 
+        dept = $("#department :input").val(), 
+        note = $("#note :input").val(), 
+        errorHtml = '<span class="help-inline">Please enter a value</span>',
+        fields;
+    
+    fields = [
+      this.isEmpty(first, "#first-name", errorHtml),
+      this.isEmpty(last, "#last-name", errorHtml),
+      this.isEmpty(dept, "#department", errorHtml)
+    ];
+    if(!this.validate(fields)) return;
+
+    var data = {
+      userid : window.activeSession.id,
+      firstname : first,
+      lastname : last,
+      dept : dept,
+      rating: 0,
+      note : note
+    };
+
+    var newRating = new this.fb.models.Rating(data);
+    newRating.save();
+    $('#condemnModal').modal('hide');
   }
   
 });
@@ -252,15 +293,34 @@ fb.views.Friends = Backbone.View.extend({
   },
   //as we fetch, each note collection will be added to a prof model in the prof collection.
   info : function() {
-    var prof = $(event.target).attr("href");
-    //these will instead be IDs
+    var prof = $(event.target).html(),
+        first = prof.split(" ")[0],
+        last = prof.split(" ")[1];
+        
+    var pc = new this.fb.models.NoteCollection();
+     callBack = function(collection, response, options) {
+      try {
+            //these will instead be IDs
     $('.tab-content').html(new this.fb.views.Reviews({
-      model : window.noteCollection
+      model : collection
     }).el);
-    //why doesnt work if bounded in review?
+     //why doesnt work if bounded in review?
     $('#container').masonry({
       itemSelector : '.item'
     });
+      } catch (e) {
+        this.showErrorPage();
+      }
+    };
+    pc.fetch({
+      data : {
+        first: first,
+        last: last
+      },
+      success : callBack
+    });
+
+   
   },
   
   previous : function() {
