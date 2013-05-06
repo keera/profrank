@@ -1,0 +1,19 @@
+{
+  "name": "Profrank",
+  "version": "0.1.0",
+  "description": "Professor Review, without the hassle.",
+  "main": "server.js",
+  "engines" : { 
+      "node" : "0.8",
+      "npm" : ">=1.1"
+  },
+  "repository": "https://github.com/keera/profrank.git",
+  "author": "Alan Lin",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "3.5.7",
+    "express": "3.1.0"
+  },
+  "homepage" : ""
+}
+
