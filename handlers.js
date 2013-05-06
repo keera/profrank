@@ -86,7 +86,7 @@ exports.getProfs = function(req, res) {
 exports.getReviews = function(req, res) {
   var f = req.param("first").toLowerCase(),
       l = req.param("last").toLowerCase();
-  Rating.find({'name.first': f, 'name.last': l}, 'rating review', function(err, results){
+  Rating.find({'name.first': f, 'name.last': l}, 'userid rating review', function(err, results){
     if(err) res.send(500, "Failed");
     res.json(results);
   });
