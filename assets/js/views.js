@@ -254,10 +254,13 @@ fb.views.Friends = Backbone.View.extend({
   info : function() {
     var prof = $(event.target).attr("href");
     //these will instead be IDs
-    $('.tab-content').empty();
-    $('.tab-content').append(new this.fb.views.Reviews({
+    $('.tab-content').html(new this.fb.views.Reviews({
       model : window.noteCollection
     }).el);
+    //why doesnt work if bounded in review?
+    $('#container').masonry({
+      itemSelector : '.item'
+    });
   },
   
   previous : function() {
