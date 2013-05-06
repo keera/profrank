@@ -119,9 +119,9 @@ fb.models.Rating = Backbone.Model.extend({
    dept : null,
    note: null,
    userid: null,
-   urlRoot : "/text",
+   urlRoot : "/prof",
    url : function() {
-     return this.urlRoot + "/" + this.id;
+     return this.urlRoot;
    }
 });
 

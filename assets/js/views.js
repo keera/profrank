@@ -166,7 +166,7 @@ fb.views.Welcome = Backbone.View.extend({
     };
 
     var newRating = new this.fb.models.Rating(data);
-    //newRating.save();
+    newRating.save();
   }
   
 });
