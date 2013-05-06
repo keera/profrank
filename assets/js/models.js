@@ -97,21 +97,6 @@ SessionModel = Backbone.Model.extend({
 });
 /* Instantiate session */
 window.activeSession = new SessionModel();
-console.log('authorized after create (should be false):', window.activeSession.isAuthorized());
-      
-fb.models.Person = Backbone.Model.extend({
-    defaults: {
-        "id":  "",
-        "name":     "",
-        "first_name":    "",
-        "last_name":    "",
-        "gender":    "",
-        "username":    "",
-        "link":    "",
-        "locale":    "",
-        "timezone":    ""
-    }
-});
 
 fb.models.Rating = Backbone.Model.extend({
    firstname : null,
@@ -151,16 +136,20 @@ fb.models.NoteCollection = Backbone.Collection.extend({
 });
 
 fb.models.Prof = Backbone.Model.extend({
-    /*defaults: {
-        "id":  "",
-        "firstname":    "",
-        "lastname":    "",
-        "department": "",
-        "endorse": "",
-        "condemn": ""
-    }*/
    defaults: {
-     "name": "",
+     fullname: function() {
+       var toUpper = function(str) {
+         return str.charAt(0).toUpperCase() + str.slice(1)
+       };
+       return toUpper(this.name.first) + " " + toUpper(this.name.last);
+     },
+     name: {
+      first: "", 
+      last: ""},
+     dept: "",
+     endorse: "",
+     condemn: "",
+     avg: ""
    }
 });
 

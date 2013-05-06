@@ -78,6 +78,7 @@ exports.getProfs = function(req, res) {
     group.reduce, group.finalize, {}, {}, 
     function(err, results) {
       if(err) res.send(500, "Failed");
+        console.log(results);
         res.json(results);
     });
 };

@@ -119,6 +119,7 @@ fb.views.Welcome = Backbone.View.extend({
     var search = $("#prof-search").val();
     var pc = new this.fb.models.ProfCollection();
     callBack = function(collection, response, options) {
+      console.log(collection);
       try {
         $('#content').html(new this.fb.views.Friends({
           model : collection
