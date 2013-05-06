@@ -5,12 +5,11 @@ var express = require('express'),
     mongoose = require("mongoose"); // The reason for this demo.
 
 var uristring = 
-  process.env.MONGOLAB_URI || 
-  process.env.MONGOHQ_URL || 
-  'mongodb://localhost/profrank';
+    process.env.MONGOLAB_URI || 
+    process.env.MONGOHQ_URL || 
+    'mongodb://localhost/profrank';
 
 app.use(express.static(__dirname + '/assets'));
-
 //connect to mongodb, async
 mongoose.connect(uristring, function (err, res) {
   if (err) { 
@@ -23,6 +22,7 @@ mongoose.connect(uristring, function (err, res) {
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function(){
+  //professors
   var profSchema = mongoose.Schema({
     name: {
       first: {type: String, trim: true},
@@ -30,21 +30,28 @@ db.once('open', function(){
       },
     dept: mongoose.Schema.Types.ObjectId
   });
-
   var Prof = mongoose.model('Profs', profSchema);
-
-  var testUser = new Prof ({
-    name: {first: 'Alan', last: 'Lin'},
-    dept: new mongoose.Types.ObjectId
+  //departments
+  var deptSchema = mongoose.Schema({name: String});
+  var Dept = mongoose.model('Depts', deptSchema);
+  //users
+  var userSchema = mongoose.Schema({
+    name: {
+      first: {type: String, trim: true},
+      last: {type: String, trim: true}
+      },
+    userid: Number
   });
-  console.log(testUser.name.first);
-
-  //insert the user
-  testUser.save(function(err){
-    if(err)
-      console.log("uh oh");
+  var User = mongoose.model('Users', userSchema);
+  //ratings
+  var ratingSchema = mongoose.Schema({
+    userid: Number,
+    profid: mongoose.Schema.Types.ObjectId,
+    rating: Number,
+    review: String
   });
-
+  var Rating = mongoose.model('Ratings', userSchema);
+  
 });
 
 
