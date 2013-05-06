@@ -1,6 +1,7 @@
-<ul>
+<div id="container">
     <% _.each(data, function(m) {  %>
-     <li><a href="#<%= m.profid %>" data-toggle="tab"><%= m.review %></a>
-    </li>
+     <div class="item">
+         <a href="#<%= m.profid %>"><%= m.review %></a>
+    </div>
     <% }); %>
-</ul>
+</div>
