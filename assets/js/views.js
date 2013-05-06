@@ -172,7 +172,8 @@ fb.views.Welcome = Backbone.View.extend({
       firstname : first,
       lastname : last,
       dept : dept,
-      rating: 1,
+      endorse: 1,
+      condemn: 0,
       note : note
     };
 
@@ -182,17 +183,17 @@ fb.views.Welcome = Backbone.View.extend({
   },
   
   postCondemn : function() {
-    var first = $("#first-name :input").val(),
-        last = $("#last-name :input").val(), 
-        dept = $("#department :input").val(), 
-        note = $("#note :input").val(), 
+    var first = $("#first-name-c :input").val(),
+        last = $("#last-name-c :input").val(), 
+        dept = $("#department-c :input").val(), 
+        note = $("#note-c :input").val(), 
         errorHtml = '<span class="help-inline">Please enter a value</span>',
         fields;
     
     fields = [
-      this.isEmpty(first, "#first-name", errorHtml),
-      this.isEmpty(last, "#last-name", errorHtml),
-      this.isEmpty(dept, "#department", errorHtml)
+      this.isEmpty(first, "#first-name-c", errorHtml),
+      this.isEmpty(last, "#last-name-c", errorHtml),
+      this.isEmpty(dept, "#department-c", errorHtml)
     ];
     if(!this.validate(fields)) return;
 
@@ -201,7 +202,8 @@ fb.views.Welcome = Backbone.View.extend({
       firstname : first,
       lastname : last,
       dept : dept,
-      rating: 0,
+      endorse: 0,
+      condemn: 1,
       note : note
     };
 
