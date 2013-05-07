@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "description": "Awesome prof review app",
   "main": "server.js",
-  "engines" : { 
-      "node" : "0.8",
-      "npm" : ">=1.1"
-  },
   "repository": "https://github.com/keera/profrank.git",
   "author": "Alan Lin",
   "license": "MIT",
