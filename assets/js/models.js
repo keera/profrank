@@ -112,12 +112,6 @@ fb.models.Rating = Backbone.Model.extend({
    }
 });
 
-fb.models.PersonCollection = Backbone.Collection.extend({
-
-    model: fb.models.Person
-
-});
-
 fb.models.Note = Backbone.Model.extend({
   defaults: {
     "profid" : "",
@@ -159,41 +153,3 @@ fb.models.ProfCollection = Backbone.Collection.extend({
     return "/dept/profs"; 
   } 
 });
-
-var a = new fb.models.Prof({"name":"Alan Test"}),
-    b = new fb.models.Prof({"name":"Bill Test"}),
-    c = new fb.models.Prof({"name":"Jee Test"}),
-    d = new fb.models.Prof({"name":"Kai Test"}),
-    e = new fb.models.Prof({"name":"Bruce Test"}),
-    f = new fb.models.Prof({"name":"Mah Test"});
-
-window.profCollection = new fb.models.ProfCollection();
-window.profCollection.add(a);
-window.profCollection.add(b);
-window.profCollection.add(c);
-window.profCollection.add(d);
-window.profCollection.add(e);
-window.profCollection.add(f);
-
-var text = "Cow tri-tip shank pork belly chuck ball tip. ;Hamburger turducken " +
-"rump ground round beef ribs tail bresaola beef spare ribs frankfurter salami shoulder "+ 
-"drumstick. Chuck capicola sausage meatball tongue pig meatloaf pork prosciutto doner tenderloin."+
-"Brisket tri-tip boudin, shank venison filet mignon biltong";
-var text2 = text + text;
-var g = new fb.models.Note({"profid": 1, "review": text, "userid": 2, "status": 1}),
-    h = new fb.models.Note({"profid": 1, "review": text, "userid": 2, "status": 1}),
-    i = new fb.models.Note({"profid": 1, "review": text2, "userid": 2, "status": 1}),
-    j = new fb.models.Note({"profid": 1, "review": text, "userid": 2, "status": 1}),
-    k = new fb.models.Note({"profid": 1, "review": text2, "userid": 2, "status": 1}),
-    l = new fb.models.Note({"profid": 1, "review": text2, "userid": 2, "status": 1});
-    
-window.noteCollection = new fb.models.NoteCollection();
-window.noteCollection.add(g);
-window.noteCollection.add(h);
-window.noteCollection.add(i);
-window.noteCollection.add(j);
-window.noteCollection.add(k);
-window.noteCollection.add(l);
-
-console.log(window.profCollection);
-console.log(window.noteCollection);

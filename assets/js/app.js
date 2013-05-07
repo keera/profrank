@@ -18,8 +18,10 @@ fb.Router = Backbone.Router.extend({
   showErrorPage : function() {
     $('#content').append(new fb.views.Error().el);
   }
+  
 });
 
+//Lets roll.
 $(document).on('ready', function() {
   var templates = [
     'shell', 
