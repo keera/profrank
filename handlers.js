@@ -111,7 +111,7 @@ exports.getReviews = function(req, res) {
   Rating.find({
     'name.first' : f,
     'name.last' : l
-  }, 'userid rating review', function(err, results) {
+  }, 'userid review condemn endorse', function(err, results) {
     if(err)
       res.send(204, "Get reviews: failed");
     res.json(results);
