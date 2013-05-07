@@ -13,6 +13,10 @@
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
+                background: url('../img/cork-texture.jpg');
+            }
+            h2 {
+              color:#fff;  
             }
             .sidebar-nav {
                 padding: 9px 0;
@@ -26,6 +30,9 @@
             #main {
                 position: fixed;
             }
+            .tabs-left > .nav-tabs {
+                border-right: none;
+            }
             
             #endorseModal .modal-header {
                 background-color: green;
@@ -33,6 +40,33 @@
             
             #condemnModal .modal-header {
                 background-color: red;
+            }
+            
+            .condemn-note{
+                border: 2px solid red;
+                -webkit-border-radius: 10px;
+-webkit-border-bottom-right-radius: 2px;
+-moz-border-radius: 10px;
+-moz-border-radius-bottomright: 2px;
+border-radius: 10px;
+border-bottom-right-radius: 2px;
+            }
+            .endorse-note{
+                border: 2px solid green;
+                -webkit-border-radius: 10px;
+-webkit-border-bottom-right-radius: 2px;
+-moz-border-radius: 10px;
+-moz-border-radius-bottomright: 2px;
+border-radius: 10px;
+border-bottom-right-radius: 2px;
+            }
+            
+            .title-reviews {
+                margin-left:150px;
+            }
+            
+            .title-header{
+                margin-bottom:20px;
             }
         </style>
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -56,17 +90,26 @@
             .item {
                 width: 220px;
                 min-height:75px;
-                margin: 10px;
+                margin: 0px 10px 10px 0px;
                 float: left;
                 padding-left:40px;
                 padding-top:10px;
-                background: transparent url("../img/quote.gif") no-repeat;
+                background: white url("../img/quote.gif") no-repeat;
             }
             
             .prof-card{
                 border:1px solid #000;
+                background-color: #fff;
                 padding:10px;
                 margin-bottom:5px;
+               -webkit-box-shadow: 0 8px 6px -6px black;
+       -moz-box-shadow: 0 8px 6px -6px black;
+            box-shadow: 0 8px 6px -6px black;
+
+            }
+            
+             .prof-card a{
+      font-size:1.3em;
             }
             
             .reviewer{
