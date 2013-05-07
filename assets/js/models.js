@@ -114,10 +114,10 @@ fb.models.Rating = Backbone.Model.extend({
 
 fb.models.Note = Backbone.Model.extend({
   defaults: {
-    "profid" : "",
-    "review" : "",
-    "userid" : "",
-    "status" : "",
+    review : "",
+    userid : "",
+    condemn : "",
+    endorse: "",
   }
 });
 
