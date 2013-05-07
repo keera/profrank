@@ -106,7 +106,7 @@ fb.models.Rating = Backbone.Model.extend({
    condemn: null,
    note: null,
    userid: null,
-   urlRoot : "/prof",
+   urlRoot : "/rating/prof",
    url : function() {
      return this.urlRoot;
    }
@@ -156,7 +156,7 @@ fb.models.Prof = Backbone.Model.extend({
 fb.models.ProfCollection = Backbone.Collection.extend({
   model: fb.models.Prof,
   url : function() {
-    return "/profs"; 
+    return "/dept/profs"; 
   } 
 });
 

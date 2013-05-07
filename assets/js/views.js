@@ -50,7 +50,7 @@ fb.views.Welcome = Backbone.View.extend({
   render : function() {
     this.$el.html(this.template());
     var autoSettings = {
-      serviceUrl : '/subjects',
+      serviceUrl : '/depts',
       minChars : 1,
       delimiter : /(,|;)\s*/, // regex or character
       maxHeight : 400,
