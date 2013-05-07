@@ -114,6 +114,7 @@ fb.views.Welcome = Backbone.View.extend({
       console.log(collection);
       try {
         $('#content').html(new this.fb.views.Friends({
+          id: search,
           model : collection
         }).el);
       } catch (e) {
@@ -267,7 +268,7 @@ fb.views.Error = Backbone.View.extend({
 
 //this will serve as professor
 fb.views.Friends = Backbone.View.extend({
-
+  
   initialize : function() {
     this.fb = fb;
     this.template = _.template(fb.templateLoader.get('profs'));
@@ -277,8 +278,18 @@ fb.views.Friends = Backbone.View.extend({
   
   render : function() {
     this.$el.html(this.template({
+      "id" : this.id,
       "data" : this.model.toJSON()
     }));
+    $(this.$el).find('.prof-card').tooltip(
+      {
+        placement: 'right',
+        delay: {
+          show: 1500, 
+          hide: 50
+        }
+      }
+     );
     return this;
   },
   

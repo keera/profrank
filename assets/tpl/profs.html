@@ -1,12 +1,16 @@
 <div class="tabbable tabs-left">
+  <div class="title-header">
+  <span class="label label-inverse">Professors of </span>
+  <span class="label label-info"><%= id %></span>
+  </div>
   <ul class="nav nav-tabs">
     <% _.each(data, function(m) {  %>
      <li>
-         <div class="prof-card">
+         <div class="prof-card" data-toggle="tooltip" title="Click name to see what other students are saying!">
             <a href="#<%= m.name.first %>" data-toggle="tab"><%= m.fullname() %></a>
             <div>
-                <span class="label label-success">Endorse:</span> <span class="badge"><%= m.endorse %></span> | 
-                <span class="label label-important">Condemn:</span> <span class="badge"><%= m.condemn %></span>
+                <span class="label label-success">Endorsements:</span> <span class="badge"><%= m.endorse %></span> | 
+                <span class="label label-important">Condemns:</span> <span class="badge"><%= m.condemn %></span>
             </div>
          </div>
     </li>
@@ -16,5 +20,5 @@
   </div>
 </div>
 
-<a class="previous" href="#">Back</a>
+<a class="previous btn btn-primary" href="#">Back</a>
 
