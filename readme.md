@@ -12,5 +12,3 @@ This needs to be easier.
 * Backbone.js
 * Node.js
 * MongoDB
-
-
