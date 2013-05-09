@@ -307,21 +307,25 @@ fb.views.Friends = Backbone.View.extend({
         first = prof.split(" ")[0],
         last = prof.split(" ")[1];
         
-    var pc = new this.fb.models.NoteCollection();
-     callBack = function(collection, response, options) {
+    var pc = new this.fb.models.NoteCollection(),
+    callBack = function(collection, response, options) {
       try {
-            //these will instead be IDs
-    $('.tab-content').html(new this.fb.views.Reviews({
-      model : collection
-    }).el);
-     //why doesnt work if bounded in review?
-    $('#container').masonry({
-      itemSelector : '.item'
-    });
+        //insert reviews
+        $('.tab-content').html(new this.fb.views.Reviews({
+          model : collection
+        }).el);
+        //stack like bricks. why doesnt work if bounded in review?
+        $('#container').masonry({
+          itemSelector : '.item'
+        });
+        //remove loader
+        $("#loading").css("visibility", "hidden");
       } catch (e) {
         this.showErrorPage();
       }
     };
+
+    $("#loading").css("visibility","visible");
     pc.fetch({
       data : {
         first: first,
@@ -329,8 +333,7 @@ fb.views.Friends = Backbone.View.extend({
       },
       success : callBack
     });
-
-   
+ 
   },
   
   previous : function() {
