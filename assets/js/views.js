@@ -153,13 +153,15 @@ fb.views.Welcome = Backbone.View.extend({
         note = $("#note :input").val(), 
         errorHtml = '<span class="help-inline">Please enter a value</span>',
         fields;
-    
-    fields = [
-      this.isEmpty(first, "#first-name", errorHtml),
-      this.isEmpty(last, "#last-name", errorHtml),
-      this.isEmpty(dept, "#department", errorHtml)
-    ];
-    if(!this.validate(fields)) return;
+
+    if(!$("#endorse-form").validate({
+        rules : {
+          "endorse-firstname" : "required",
+          "endorse-lastname" : "required",
+          "endorse-dept" : "required",
+        }
+      }).form())
+      return;
 
     var data = {
       userid : window.activeSession.id,
@@ -184,12 +186,14 @@ fb.views.Welcome = Backbone.View.extend({
         errorHtml = '<span class="help-inline">Please enter a value</span>',
         fields;
     
-    fields = [
-      this.isEmpty(first, "#first-name-c", errorHtml),
-      this.isEmpty(last, "#last-name-c", errorHtml),
-      this.isEmpty(dept, "#department-c", errorHtml)
-    ];
-    if(!this.validate(fields)) return;
+    if(!$("#condemn-form").validate({
+        rules : {
+          "condemn-firstname" : "required",
+          "condemn-lastname" : "required",
+          "condemn-dept" : "required",
+        }
+      }).form())
+      return;
 
     var data = {
       userid : window.activeSession.id,
