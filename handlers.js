@@ -27,19 +27,16 @@ db.once('open', function() {
       first : {
         type : String,
         trim : true,
-        lowercase : true
       },
       last : {
         type : String,
         trim : true,
-        lowercase : true
       }
     },
     userid : Number,
     dept : {
       type : String,
       trim : true,
-      lowercase : true
     },
     endorse : Number,
     condemn : Number,
@@ -70,7 +67,7 @@ exports.addProf = function(req, res) {
 };
 
 exports.getProfs = function(req, res) {
-  var p = req.param("query").toLowerCase();
+  var p = req.param("query");
   var group = {
     key : {
       name : {
@@ -80,7 +77,10 @@ exports.getProfs = function(req, res) {
       'dept' : 1
     },
     cond : {
-      dept : p
+      dept : {
+        $regex : p,
+        $options: 'i'
+      }
     },
     reduce : function(curr, result) {
       result.endorse += curr.endorse;
@@ -106,11 +106,17 @@ exports.getProfs = function(req, res) {
 };
 
 exports.getReviews = function(req, res) {
-  var f = req.param("first").toLowerCase(), 
-      l = req.param("last").toLowerCase();
+  var f = req.param("first"), 
+      l = req.param("last");
   Rating.find({
-    'name.first' : f,
-    'name.last' : l
+    'name.first' : {
+      $regex : f,
+      $options: 'i'
+    },
+    'name.last' : {
+      $regex : l,
+      $options: 'i'
+    }
   }, 'userid review condemn endorse', function(err, results) {
     if(err)
       res.send(204, "Get reviews: failed");
