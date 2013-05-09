@@ -63,7 +63,7 @@ fb.views.Welcome = Backbone.View.extend({
     autoSettings.width = 302;
     $(this.$el).find('#prof-search').autocomplete(autoSettings);
     
-    $(this.$el).find('#prof-search').tooltip();
+    $(this.$el).find('#prof-search').tooltip({placement:"bottom"});
     $(this.$el).find('#endorse').tooltip();
     $(this.$el).find('#condemn').tooltip();
     return this;
