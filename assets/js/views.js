@@ -112,9 +112,9 @@ fb.views.Welcome = Backbone.View.extend({
     var search = $("#prof-search").val();
     var pc = new this.fb.models.ProfCollection();
     callBack = function(collection, response, options) {
-      console.log(collection);
+      //console.log(collection);
       try {
-        $('#content').html(new this.fb.views.Friends({
+        $('#content').html(new this.fb.views.Profs({
           id: search,
           model : collection
         }).el);
@@ -272,7 +272,7 @@ fb.views.Error = Backbone.View.extend({
 });
 
 //this will serve as professor
-fb.views.Friends = Backbone.View.extend({
+fb.views.Profs = Backbone.View.extend({
   
   initialize : function() {
     this.fb = fb;
