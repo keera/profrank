@@ -56,11 +56,13 @@ fb.views.Welcome = Backbone.View.extend({
       maxHeight : 300,
       width : 220,
       deferRequestBy : 0, //miliseconds
-      appendTo: $(this.$el).find('#suggestions'),
       noCache : false, //default is false, set to true to disable caching
     };
     $(this.$el).find('#query').autocomplete(autoSettings);
+    //update for omnisearch
     autoSettings.width = 302;
+    autoSettings.appendTo = $(this.$el).find('#suggestions'),
+    autoSettings.serviceUrl = "/any",
     $(this.$el).find('#prof-search').autocomplete(autoSettings);
     $(this.$el).find('#prof-search').tooltip({placement:"right"});
     $(this.$el).find('#endorse').tooltip();

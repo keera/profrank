@@ -17,7 +17,7 @@ mongoose.connect(uristring, function(err, res) {
 });
 
 var db = mongoose.connection,
-    Rating, Term;
+    Rating;
 
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function() {
@@ -27,72 +27,30 @@ db.once('open', function() {
       first : {
         type : String,
         trim : true,
+        lowercase: true
       },
       last : {
         type : String,
         trim : true,
+        lowercase: true
       }
     },
     userid : Number,
     dept : {
       type : String,
       trim : true,
+      lowercase: true
     },
     endorse : Number,
     condemn : Number,
     review : String
   });
   Rating = mongoose.model('Ratings', ratingSchema);
-  //terms for fast searching
-  var termSchema = mongoose.Schema({
-    title: {
-      type: String,
-      trim: true,
-    },
-    type: {
-      type: String,
-      trim: true,
-    }
-  });
-  Term = mongoose.model('Terms', termSchema);
+
 });
 
 exports.addProf = function(req, res) {
   var p = req.body;
-  //add to data
-  Rating.find({
-    "dept" : {
-      $regex : p.dept,
-      $options: 'i'
-    }
-  }).count(function(err, count) {
-    if(count < 1){
-      var newDept = new Term({
-        title: p.dept,
-        type: "dept"
-      });
-      newDept.save();
-    }
-  });
-  
-  Rating.find({
-    'name.first' : {
-      $regex : p.firstname,
-      $options: 'i'
-    },
-    'name.last' : {
-      $regex : p.lastname,
-      $options: 'i'
-    }
-  }).count(function(err, count) {
-    if(count < 1){
-      var newProf = new Term({
-        title: p.firstname + " " + p.lastname,
-        type: "prof"
-      });
-      newProf.save();
-    }
-  });
 
   var newRating = new Rating({
     name : {
@@ -180,8 +138,8 @@ exports.getReviews = function(req, res) {
 };
 
 exports.getDepts = function(req, res) {
-  var f = req.param("query");
-  /*Rating.find({
+ var f = req.param("query");
+  Rating.find({
     "dept" : {
       $regex : f
     }
@@ -199,25 +157,78 @@ exports.getDepts = function(req, res) {
       });
     }
     res.json(responseData);
-  });*/
- Term.find({
-    "title" : {
-      $regex : f,
-      $options: 'i'
+  });
+
+};
+
+exports.getAny = function(req, res) {
+  var f = req.param("query"),
+      responseData = {
+        query : "Unit",
+        suggestions : []
+      },
+      group,
+      a;
+
+  group = {
+    key : {
+      name : {
+        first : 1,
+        last : 1
+      }
+    },
+    cond : {
+      $or : [{
+        'name.first' : {
+          $regex : f,
+          $options : 'i'
+        }
+      }, {
+        'name.last' : {
+          $regex : f,
+          $options : 'i'
+        }
+      }],
+    },
+    reduce : function(curr, result) {
+      result.a = 0;
+    },
+    initial : {
+      a : 0
+    },
+    finalize : {}
+  };
+
+  Rating.find({
+    "dept" : {
+      $regex : f
     }
-  }, "title").distinct("title", function(err, results) {
+  }, "dept").distinct("dept", function(err, results) {
     if(err)
       res.send(204, "Get subjects: failed");
-    var responseData = {
-      query : "Unit",
-      suggestions : []
-    };
-    for(var a in results) {
+
+    for(a in results) {
       responseData.suggestions.push({
         value : results[a],
         data : ""
       });
     }
-    res.json(responseData);
+
+    Rating.collection.group(group.key, group.cond, 
+      group.initial, group.reduce, 
+      group.finalize, 
+      {}, {}, function(err, results) {
+      if(err)
+        res.send(204, "Get names: failed");
+        
+      for(a in results) {
+        responseData.suggestions.push({
+          value : results[a].name.first + " " + results[a].name.last,
+          data : ""
+        });
+      }
+      res.json(responseData);
+    });
   });
+
 };

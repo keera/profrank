@@ -24,7 +24,11 @@ app.get('/reviews', function(req, res) {
 
 app.get('/depts', function(req, res){
   handlers.getDepts(req, res);
-})
+});
+
+app.get('/any', function(req, res){
+  handlers.getAny(req, res);
+});
 
 var port = process.env.PORT || 5000;
 app.listen(port);
