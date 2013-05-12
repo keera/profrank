@@ -160,6 +160,7 @@ fb.views.Welcome = Backbone.View.extend({
           "endorse-firstname" : "required",
           "endorse-lastname" : "required",
           "endorse-dept" : "required",
+          "endorse-review" : "required",
         }
       }).form())
       return;
