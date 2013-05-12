@@ -17,7 +17,7 @@ mongoose.connect(uristring, function(err, res) {
 });
 
 var db = mongoose.connection,
-    Rating;
+    Rating, Term;
 
 db.on('error', console.error.bind(console, 'connection error'));
 db.once('open', function() {
@@ -43,10 +43,56 @@ db.once('open', function() {
     review : String
   });
   Rating = mongoose.model('Ratings', ratingSchema);
+  //terms for fast searching
+  var termSchema = mongoose.Schema({
+    title: {
+      type: String,
+      trim: true,
+    },
+    type: {
+      type: String,
+      trim: true,
+    }
+  });
+  Term = mongoose.model('Terms', termSchema);
 });
 
 exports.addProf = function(req, res) {
   var p = req.body;
+  //add to data
+  Rating.find({
+    "dept" : {
+      $regex : p.dept,
+      $options: 'i'
+    }
+  }).count(function(err, count) {
+    if(count < 1){
+      var newDept = new Term({
+        title: p.dept,
+        type: "dept"
+      });
+      newDept.save();
+    }
+  });
+  
+  Rating.find({
+    'name.first' : {
+      $regex : p.firstname,
+      $options: 'i'
+    },
+    'name.last' : {
+      $regex : p.lastname,
+      $options: 'i'
+    }
+  }).count(function(err, count) {
+    if(count < 1){
+      var newProf = new Term({
+        title: p.firstname + " " + p.lastname,
+        type: "prof"
+      });
+      newProf.save();
+    }
+  });
 
   var newRating = new Rating({
     name : {
@@ -67,7 +113,8 @@ exports.addProf = function(req, res) {
 };
 
 exports.getProfs = function(req, res) {
-  var p = req.param("query");
+  var p = req.param("query"),
+      split = p.split(" ");
   var group = {
     key : {
       name : {
@@ -77,10 +124,18 @@ exports.getProfs = function(req, res) {
       'dept' : 1
     },
     cond : {
-      dept : {
-        $regex : p,
-        $options: 'i'
-      }
+      $or: [
+        {
+          dept : {
+            $regex : p,
+            $options: 'i'
+          }
+        },
+        {
+          'name.first': { $in: split },
+          'name.last': { $in: split },
+        }
+      ]
     },
     reduce : function(curr, result) {
       result.endorse += curr.endorse;
@@ -100,7 +155,7 @@ exports.getProfs = function(req, res) {
     {}, function(err, results) {
     if(err)
       res.send(204, "Get professor: failed");
-    console.log(results);
+    //console.log(results);
     res.json(results);
   });
 };
@@ -126,11 +181,31 @@ exports.getReviews = function(req, res) {
 
 exports.getDepts = function(req, res) {
   var f = req.param("query");
-  Rating.find({
+  /*Rating.find({
     "dept" : {
       $regex : f
     }
   }, "dept").distinct("dept", function(err, results) {
+    if(err)
+      res.send(204, "Get subjects: failed");
+    var responseData = {
+      query : "Unit",
+      suggestions : []
+    };
+    for(var a in results) {
+      responseData.suggestions.push({
+        value : results[a],
+        data : ""
+      });
+    }
+    res.json(responseData);
+  });*/
+ Term.find({
+    "title" : {
+      $regex : f,
+      $options: 'i'
+    }
+  }, "title").distinct("title", function(err, results) {
     if(err)
       res.send(204, "Get subjects: failed");
     var responseData = {
