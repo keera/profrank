@@ -193,6 +193,7 @@ fb.views.Welcome = Backbone.View.extend({
           "condemn-firstname" : "required",
           "condemn-lastname" : "required",
           "condemn-dept" : "required",
+          "condemn-review" : "required",
         }
       }).form())
       return;
