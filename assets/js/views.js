@@ -53,17 +53,16 @@ fb.views.Welcome = Backbone.View.extend({
       serviceUrl : '/depts',
       minChars : 1,
       delimiter : /(,|;)\s*/, // regex or character
-      maxHeight : 400,
+      maxHeight : 300,
       width : 220,
-      zIndex : 9999,
       deferRequestBy : 0, //miliseconds
+      appendTo: $(this.$el).find('#suggestions'),
       noCache : false, //default is false, set to true to disable caching
     };
     $(this.$el).find('#query').autocomplete(autoSettings);
     autoSettings.width = 302;
     $(this.$el).find('#prof-search').autocomplete(autoSettings);
-    
-    $(this.$el).find('#prof-search').tooltip({placement:"bottom"});
+    $(this.$el).find('#prof-search').tooltip({placement:"right"});
     $(this.$el).find('#endorse').tooltip();
     $(this.$el).find('#condemn').tooltip();
     return this;

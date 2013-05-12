@@ -1,7 +1,11 @@
 <div class="tabbable tabs-left">
   <div class="title-header">
-  <span class="label label-inverse">Professors of </span>
-  <span class="label label-info"><%= id %></span>
+  <div class="page-header">
+    <h4>Professor Reviews</h4>
+              <span class="label label-info">Search terms: </span>
+  <span class="label label-success"><%= id %></span>
+  </div>
+  
   </div>
   <ul class="nav nav-tabs">
     <% _.each(data, function(m) {  %>
