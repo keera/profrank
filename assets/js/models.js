@@ -131,12 +131,6 @@ fb.models.NoteCollection = Backbone.Collection.extend({
 
 fb.models.Prof = Backbone.Model.extend({
    defaults: {
-     fullname: function() {
-       var toUpper = function(str) {
-         return str.charAt(0).toUpperCase() + str.slice(1)
-       };
-       return toUpper(this.name.first) + " " + toUpper(this.name.last);
-     },
      name: {
       first: "", 
       last: ""},

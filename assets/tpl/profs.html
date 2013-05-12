@@ -11,7 +11,7 @@
     <% _.each(data, function(m) {  %>
      <li>
          <div class="prof-card" data-toggle="tooltip" title="Click name to see what other students are saying!">
-            <a href="#<%= m.name.first %>" data-toggle="tab"><%= m.fullname() %></a>
+            <a href="#<%= m.name.first %>" data-toggle="tab"><%= m.name.first + " " + m.name.last %></a>
             <div>
                 <span class="label label-success">Endorsements:</span> <span class="badge"><%= m.endorse %></span> | 
                 <span class="label label-important">Condemns:</span> <span class="badge"><%= m.condemn %></span>
