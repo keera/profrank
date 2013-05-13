@@ -12,12 +12,13 @@ Knowing who to take and who to avoid should not cause headaches. It needs to be 
 2. Set up a valid [Facebook Application](https://developers.facebook.com/)
     
     To test the authentication locally, set App Domain to localhost and site URL to http://localhost/yourapp
+    
 3. Update js/facebook.js to use your APPID.
 4. [Get MongoDB](http://www.mongodb.org/downloads)
 5. [Get Node.js](http://nodejs.org/download/)
-6. Install application dependencies. Navigate to your application folder and type
+6. Install application dependencies. 
 
-    npm install
+    Navigate to your application folder and type `npm install`
 
 7. Start MongoDB
 8. Start Node.js server 
