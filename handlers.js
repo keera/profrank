@@ -43,7 +43,8 @@ db.once('open', function() {
     },
     endorse : Number,
     condemn : Number,
-    review : String
+    review : String,
+    anon : Number
   });
   Rating = mongoose.model('Ratings', ratingSchema);
 
@@ -61,7 +62,8 @@ exports.addProf = function(req, res) {
     dept : p.dept,
     endorse : p.endorse,
     condemn : p.condemn,
-    review : p.note
+    review : p.note,
+    anon : p.anon
   });
   newRating.save(function(err) {
     if(err)
@@ -130,7 +132,7 @@ exports.getReviews = function(req, res) {
       $regex : l,
       $options: 'i'
     }
-  }, 'userid review condemn endorse', function(err, results) {
+  }, 'userid review condemn endorse anon', function(err, results) {
     if(err)
       res.send(204, "Get reviews: failed");
     res.json(results);

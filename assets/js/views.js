@@ -151,6 +151,7 @@ fb.views.Welcome = Backbone.View.extend({
         last = $("#last-name :input").val(), 
         dept = $("#department :input").val(), 
         note = $("#note :input").val(), 
+        anon = $('input:checkbox[name=endorse-checkbox]:checked').length,
         errorHtml = '<span class="help-inline">Please enter a value</span>',
         fields;
 
@@ -171,7 +172,8 @@ fb.views.Welcome = Backbone.View.extend({
       dept : dept,
       endorse: 1,
       condemn: 0,
-      note : note
+      note : note,
+      anon : anon
     };
 
     var newRating = new this.fb.models.Rating();
@@ -194,6 +196,7 @@ fb.views.Welcome = Backbone.View.extend({
         last = $("#last-name-c :input").val(), 
         dept = $("#department-c :input").val(), 
         note = $("#note-c :input").val(), 
+        anon = $('input:checkbox[name=condemn-checkbox]:checked').length,
         errorHtml = '<span class="help-inline">Please enter a value</span>',
         fields;
     
@@ -214,7 +217,8 @@ fb.views.Welcome = Backbone.View.extend({
       dept : dept,
       endorse: 0,
       condemn: 1,
-      note : note
+      note : note,
+      anon : anon
     };
 
     var newRating = new this.fb.models.Rating();

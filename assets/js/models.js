@@ -106,6 +106,7 @@ fb.models.Rating = Backbone.Model.extend({
    condemn: null,
    note: null,
    userid: null,
+   anon: null,
    urlRoot : "/rating/prof",
    url : function() {
      return this.urlRoot;
@@ -118,6 +119,7 @@ fb.models.Note = Backbone.Model.extend({
     userid : "",
     condemn : "",
     endorse: "",
+    anon: ""
   }
 });
 
