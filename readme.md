@@ -34,7 +34,9 @@ Create a new branch, add features, and then do a pull request.
 
 ###Tech stack
 
-* Bootstrap
-* Backbone.js
-* Node.js
-* MongoDB
+* [Bootstrap](http://twitter.github.io/bootstrap/)
+* [Backbone.js](http://backbonejs.org/)
+* [Node.js](http://nodejs.org/)
+    * [Mongoose](http://expressjs.com/) 
+    * [Express](http://mongoosejs.com/)
+* [MongoDB](http://www.mongodb.org/)
