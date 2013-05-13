@@ -156,6 +156,14 @@ exports.getDepts = function(req, res) {
         data : ""
       });
     }
+
+    if(responseData.suggestions.length < 1) {
+      responseData.suggestions.push({
+        value : "No suggestions",
+        data : ""
+      });
+    }
+
     res.json(responseData);
   });
 
@@ -230,7 +238,7 @@ exports.getAny = function(req, res) {
       if(responseData.suggestions.length < 1){
         responseData.suggestions.push({
           value : "No suggestions",
-          data : "WOW"
+          data : ""
         });
       }
       res.json(responseData);
