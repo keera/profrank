@@ -21,9 +21,9 @@ Knowing who to take and who to avoid should not cause headaches. It needs to be 
     Navigate to your application folder and type `npm install`
 
 7. Start MongoDB
-8. Start Node.js server 
-9. Visit your app at http://localhost:5000/yourapp
-10. If you don't already have GIT installed, get [GIT](http://git-scm.com/).
+8. Start Node.js server by typing `node server.js`
+9. Visit your app at *http://localhost:5000/yourapp*
+10. If you don't already have **GIT** installed, get [GIT](http://git-scm.com/).
 
 Create a new branch, add features, and then do a pull request.
 
@@ -37,6 +37,6 @@ Create a new branch, add features, and then do a pull request.
 * [Bootstrap](http://twitter.github.io/bootstrap/)
 * [Backbone.js](http://backbonejs.org/)
 * [Node.js](http://nodejs.org/)
-    * [Mongoose](http://expressjs.com/) 
-    * [Express](http://mongoosejs.com/)
+    * [Mongoose](http://mongoosejs.com/)
+    * [Express](http://expressjs.com/)
 * [MongoDB](http://www.mongodb.org/)
