@@ -174,8 +174,18 @@ fb.views.Welcome = Backbone.View.extend({
       note : note
     };
 
-    var newRating = new this.fb.models.Rating(data);
-    newRating.save();
+    var newRating = new this.fb.models.Rating();
+    var callBack = function(model, response){
+      var html = '<div class="alert alert-success">'+
+        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+        'Thank you for your endorsement!' +
+        '</div>';
+      $(".navbar").append(html);
+    };
+    var error = function(mode, response){
+      alert("Post failed");
+    }
+    newRating.save(data, {success: callBack, error: error});
     $('#endorseModal').modal('hide');
   },
   
@@ -207,8 +217,18 @@ fb.views.Welcome = Backbone.View.extend({
       note : note
     };
 
-    var newRating = new this.fb.models.Rating(data);
-    newRating.save();
+    var newRating = new this.fb.models.Rating();
+    var callBack = function(model, response){
+      var html = '<div class="alert alert-success">'+
+        '<button type="button" class="close" data-dismiss="alert">&times;</button>'+
+        'Thank you for your condemnation!' +
+        '</div>';
+      $(".navbar").append(html);
+    };
+    var error = function(mode, response){
+      alert("Post failed");
+    }
+    newRating.save(data, {success: callBack, error: error});
     $('#condemnModal').modal('hide');
   }
   
