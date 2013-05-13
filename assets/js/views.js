@@ -61,8 +61,8 @@ fb.views.Welcome = Backbone.View.extend({
     $(this.$el).find('#query').autocomplete(autoSettings);
     //update for omnisearch
     autoSettings.width = 302;
-    autoSettings.appendTo = $(this.$el).find('#suggestions'),
-    autoSettings.serviceUrl = "/any",
+    autoSettings.appendTo = $(this.$el).find('#suggestions');
+    autoSettings.serviceUrl = "/any";
     $(this.$el).find('#prof-search').autocomplete(autoSettings);
     $(this.$el).find('#prof-search').tooltip({placement:"right"});
     $(this.$el).find('#endorse').tooltip();
@@ -112,7 +112,6 @@ fb.views.Welcome = Backbone.View.extend({
     var search = $("#prof-search").val();
     var pc = new this.fb.models.ProfCollection();
     callBack = function(collection, response, options) {
-      //console.log(collection);
       try {
         $('#content').html(new this.fb.views.Profs({
           id: search,
@@ -297,6 +296,10 @@ fb.views.Profs = Backbone.View.extend({
         }
       }
      );
+     if(this.model.length < 1) {
+       $(this.$el).find(".tab-content").html('<div class="alert">'+
+          '<strong>No results!</strong></div>');
+     };
     return this;
   },
   

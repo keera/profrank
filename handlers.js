@@ -227,6 +227,12 @@ exports.getAny = function(req, res) {
           data : ""
         });
       }
+      if(responseData.suggestions.length < 1){
+        responseData.suggestions.push({
+          value : "No suggestions",
+          data : "WOW"
+        });
+      }
       res.json(responseData);
     });
   });

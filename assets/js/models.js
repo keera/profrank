@@ -90,7 +90,7 @@ SessionModel = Backbone.Model.extend({
    _session._onERROR('User cancelled login or did not fully authorize.');
    }
    }, {
-    scope: 'email,user_likes'
+    scope: 'email'
    });
  }
 
