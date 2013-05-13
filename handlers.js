@@ -66,7 +66,7 @@ exports.addProf = function(req, res) {
   newRating.save(function(err) {
     if(err)
       res.send(204, "Add professor: failed");
-    res.send(200, "Success");
+    res.json(200);
   });
 };
 
