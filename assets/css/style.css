@@ -65,3 +65,74 @@ input[type="text"].input-xlarge {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+.autocomplete-suggestion {
+    background-color: #fff;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    padding: 10px 0px 10px 5px;
+    margin-top: 1px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-align: left;
+    text-transform: capitalize;
+}
+.autocomplete-suggestion:hover, .autocomplete-selected {
+    background-color: #bff;
+}
+.item {
+    width: 220px;
+    min-height: 75px;
+    margin: 0px 10px 10px 0px;
+    float: left;
+    padding-left: 35px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+    background: white url("../img/quote.gif") no-repeat;
+}
+.prof-card {
+    border: 1px solid #000;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+.prof-card a {
+    font-size: 1.3em;
+    text-transform: capitalize;
+}
+.reviewer {
+    float: right;
+    margin-right: 10px;
+    border: 1px solid #000;
+    width: 18px;
+    height: 18px;
+}
+.reviewer img {
+    vertical-align: top;
+}
+#loading {
+    width: 50px;
+    position: absolute;
+    margin-left: auto;
+    left: 50%;
+    right: 50%;
+    top: 50%;
+    visibility: hidden;
+}
+#suggestions {
+    position: absolute;
+    margin-left: 434px;
+    color: #000;
+    margin-top: -40px;
+}
+label.error {
+    color: red;
+    margin-left: 5px;
+}
