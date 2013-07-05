@@ -2,3 +2,66 @@
     font-family: source-code-pro, serif;
     font-size: 14px;
 }
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    background: url('../img/cork-texture.jpg');
+}
+h2 {
+    color: #fff;
+}
+.sidebar-nav {
+    padding: 9px 0;
+}
+#note textarea, #note-c textarea {
+    width: 515px;
+}
+input[type="text"].input-xlarge {
+    padding: 15px;
+}
+#main {
+    position: fixed;
+}
+.tabs-left > .nav-tabs {
+    border-right: none;
+}
+#endorseModal .modal-header {
+    background-color: green;
+}
+#condemnModal .modal-header {
+    background-color: red;
+}
+.condemn-note {
+    border: 2px solid red;
+    -webkit-border-radius: 10px;
+    -webkit-border-bottom-right-radius: 2px;
+    -moz-border-radius: 10px;
+    -moz-border-radius-bottomright: 2px;
+    border-radius: 10px;
+    border-bottom-right-radius: 2px;
+}
+.endorse-note {
+    border: 2px solid green;
+    -webkit-border-radius: 10px;
+    -webkit-border-bottom-right-radius: 2px;
+    -moz-border-radius: 10px;
+    -moz-border-radius-bottomright: 2px;
+    border-radius: 10px;
+    border-bottom-right-radius: 2px;
+}
+.title-reviews {
+    margin-left: 150px;
+}
+.title-header {
+    margin-bottom: 20px;
+}
+.page-header h4 {
+    text-align: center;
+    color: #000;
+    width: 185px;
+    background-color: #fff;
+    border: 1px solid #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
